@@ -4,7 +4,7 @@ go 1.23.4
 
 require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0
-	github.com/shoumq/sso_protos v0.0.0-20241214091112-7162e0262f5b
+	github.com/shoumq/sso_protos v0.0.0-20241214222437-b305e37bcf6e
 	google.golang.org/grpc v1.69.0
 )
 
