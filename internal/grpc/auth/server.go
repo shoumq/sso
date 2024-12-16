@@ -9,19 +9,8 @@ import (
 )
 
 type Auth interface {
-	Login(
-		ctx context.Context,
-		email string,
-		password string,
-		appID int,
-	) (token string, err error)
-
-	Register(
-		ctx context.Context,
-		email string,
-		password string,
-	) (userID int64, err error)
-
+	Login(ctx context.Context, email string, password string, appID int) (token string, err error)
+	Register(ctx context.Context, email string, password string) (userID int64, err error)
 	IsAdmin(ctx context.Context, userID int64) (bool, error)
 }
 
@@ -38,10 +27,7 @@ const (
 	emptyValue = 0
 )
 
-func (s *ServerAPI) Login(
-	ctx context.Context,
-	req *ssov1.LoginRequest,
-) (*ssov1.LoginResponse, error) {
+func (s *ServerAPI) Login(ctx context.Context, req *ssov1.LoginRequest) (*ssov1.LoginResponse, error) {
 	if err := validateLogin(req); err != nil {
 		return nil, err
 	}
@@ -57,10 +43,7 @@ func (s *ServerAPI) Login(
 	}, nil
 }
 
-func (s *ServerAPI) Register(
-	ctx context.Context,
-	req *ssov1.RegisterRequest,
-) (*ssov1.RegisterResponse, error) {
+func (s *ServerAPI) Register(ctx context.Context, req *ssov1.RegisterRequest) (*ssov1.RegisterResponse, error) {
 	if err := validateRegister(req); err != nil {
 		return nil, err
 	}
@@ -76,10 +59,7 @@ func (s *ServerAPI) Register(
 	}, nil
 }
 
-func (s *ServerAPI) IsAdmin(
-	ctx context.Context,
-	req *ssov1.IsAdminRequest,
-) (*ssov1.IsAdminResponse, error) {
+func (s *ServerAPI) IsAdmin(ctx context.Context, req *ssov1.IsAdminRequest) (*ssov1.IsAdminResponse, error) {
 	if err := validateIsAdmin(req); err != nil {
 		return nil, err
 	}

@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
-	"sso/cmd/internal/app"
-	"sso/cmd/internal/config"
+	"sso/internal/app"
+	"sso/internal/config"
 	"syscall"
 )
 
