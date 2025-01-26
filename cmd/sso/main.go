@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	_ "github.com/mattn/go-sqlite3"
 	"log/slog"
 	"os"
 	"os/signal"

@@ -34,7 +34,7 @@ type UserProvider interface {
 }
 
 type AppProvider interface {
-	App(ctx context.Context, appID int) (models.App, error)
+	App(ctx context.Context, appID int64) (models.App, error)
 }
 
 var (
@@ -58,7 +58,7 @@ func (a *Auth) Login(
 	email string,
 	password string,
 	appID int,
-) (string, error) {
+) (token string, err error) {
 	const op = "auth.Login"
 
 	log := a.log.With(
@@ -83,14 +83,14 @@ func (a *Auth) Login(
 		return "", fmt.Errorf("%s: %w", op, ErrInvalidCredentials)
 	}
 
-	app, err := a.appProvider.App(ctx, appID)
+	app, err := a.appProvider.App(ctx, int64(appID))
 	if err != nil {
 		return "", fmt.Errorf("%s: %w", op, err)
 	}
 
 	log.Info("successfully logged in")
 
-	token, err := jwt.NewToken(user, app, a.tokenTTL)
+	token, err = jwt.NewToken(user, app, a.tokenTTL)
 	if err != nil {
 		a.log.Error("failed to create token", err)
 		return "", fmt.Errorf("%s: %w", op, err)

@@ -1,6 +1,7 @@
 package grpcapp
 
 import (
+	"context"
 	"fmt"
 	"google.golang.org/grpc"
 	"log/slog"
@@ -12,6 +13,12 @@ type App struct {
 	log        *slog.Logger
 	gRPCServer *grpc.Server
 	port       int
+}
+
+type Auth interface {
+	Login(ctx context.Context, email string, password string, appID int) (token string, err error)
+	Register(ctx context.Context, email string, password string) (userID int64, err error)
+	IsAdmin(ctx context.Context, userID int64) (bool, error)
 }
 
 func New(log *slog.Logger, authService authgrpc.Auth, port int) *App {

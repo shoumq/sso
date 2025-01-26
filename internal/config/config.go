@@ -3,6 +3,7 @@ package config
 import (
 	"flag"
 	"github.com/ilyakaznacheev/cleanenv"
+	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"time"
 )
